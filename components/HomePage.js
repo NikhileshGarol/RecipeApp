@@ -100,18 +100,24 @@ const HomePage = ({navigation, route}) => {
             onChangeText={handleSearch}
           />
         </View>
-        <FlatList
-          data={searchQuery?.length > 0 ? filteredRecipes : recipesData}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={styles.recipeCard}
-              onPress={() => onRecipeClick(item)}>
-              <Text>{item?.name}</Text>
-              <Image style={styles.image} source={{uri: item?.image}} />
-            </TouchableOpacity>
-          )}
-        />
+        {recipesData?.length > 0 ? (
+          <FlatList
+            data={searchQuery?.length > 0 ? filteredRecipes : recipesData}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                style={styles.recipeCard}
+                onPress={() => onRecipeClick(item)}>
+                <Text>{item?.name}</Text>
+                <Image style={styles.image} source={{uri: item?.image}} />
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <View>
+            <Text>No Recipes Available</Text>
+          </View>
+        )}
       </View>
     </>
   );

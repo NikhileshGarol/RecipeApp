@@ -32,25 +32,31 @@ const SavedRecipes = ({savedRecipes, route, navigation, user}) => {
         source={require('../assets/bgImage.jpg')}
         style={styles.backgroundImage}
       />
-      <FlatList
-        data={recipeItems}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.recipeCard}
-            onPress={() => onRecipeClick(item)}>
-            <Text>{item?.name}</Text>
-            <Image
-              style={styles.image}
-              source={
-                item?.image
-                  ? {uri: item?.image}
-                  : require('../assets/noImage.png')
-              }
-            />
-          </TouchableOpacity>
-        )}
-      />
+      {recipeItems?.length > 0 ? (
+        <FlatList
+          data={recipeItems}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={styles.recipeCard}
+              onPress={() => onRecipeClick(item)}>
+              <Text>{item?.name}</Text>
+              <Image
+                style={styles.image}
+                source={
+                  item?.image
+                    ? {uri: item?.image}
+                    : require('../assets/noImage.png')
+                }
+              />
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <View>
+          <Text>No Saved Recipes</Text>
+        </View>
+      )}
       {/* <Button title="Clear Saved Recipes" onPress={() => clearSavedRecipes} /> */}
     </View>
   );
